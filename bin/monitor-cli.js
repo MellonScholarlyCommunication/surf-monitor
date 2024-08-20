@@ -12,12 +12,42 @@ for (let i = 0 ; i < config.inboxes.length ; i++) {
     
     console.log(`[` + chalk.yellow(inbox) + `]`);
     for (let i = 0 ; i < notifications.length ; i++) {
-        const id = notifications[i].id;
-        const type = notifications[i].type;
-        const actor = notifications[i].actor.id;
-        const object = notifications[i].object.id;
-        console.log(` |- ${chalk.blue(actor)} ${chalk.red.bold(type)} ${object}`);
+        const no = notifications[i];
+        const id = no.id;
+        const type = no.type;
+        const actor = normalizeActor(no.actor.id);
+        const target = normalizeActor(no.target?.id);
+        let object = no.object.id;
+        
+        if (no.object.url) {
+            object = no.object.url[0].href;
+        }
+
+        console.log(` \\_ from: ${chalk.blue(actor)} ${chalk.red.bold(type)} ${object}`);
+
+        if (target) {
+            console.log(`     \\_ to: ${chalk.blue(target)}`);
+        }
     }
+}
+
+function normalizeActor(actor) {
+    if (!actor) {
+        return null;
+    }
+
+    let result = actor;
+
+    if (actor.match(/@/)) {
+        result = result.replaceAll(/https?:\/\/(.*)\/@(.*)/g,"$2@$1");
+    }
+
+    if (actor.match(/192.87.108.242/)) {
+        result = result.replaceAll(/http:\/\/192.87.108.242\//g,"@surf:")
+                     .replaceAll(/\/profile.*/g,'');
+    }
+
+    return result;
 }
 
 function listInbox(path) {
