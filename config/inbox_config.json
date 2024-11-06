@@ -4,8 +4,8 @@
         "../mastodon-bot/inbox",
         "../mastodon-bot/error",
         "../mastodon-bot/outbox",
-        "../zotero-server/inbox",
-        "../zotero-server/error",
-        "../zotero-server/outbox"
+        "../metadata-server/inbox",
+        "../metadata-server/error",
+        "../metadata-server/outbox"
     ]
 }
