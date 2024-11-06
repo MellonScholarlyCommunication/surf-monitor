@@ -11,7 +11,14 @@ for (let i = 0 ; i < config.inboxes.length ; i++) {
     const notifications = listInbox(inbox);
     
     console.log(`[` + chalk.yellow(inbox) + `]`);
-    for (let i = 0 ; i < notifications.length ; i++) {
+
+    let boxLength = notifications.length;
+
+    if (boxLength > 5) {
+        boxLength = 5;
+    }
+
+    for (let i = 0 ; i < boxLength ; i++) {
         const no = notifications[i];
         const id = no.id;
         const type = no.type;
@@ -28,6 +35,10 @@ for (let i = 0 ; i < config.inboxes.length ; i++) {
         if (target) {
             console.log(`     \\_ to: ${chalk.blue(target)}`);
         }
+    }
+
+    if (boxLength < notifications.length) {
+        console.log(` ... plus ${notifications.length - boxLength} more`);
     }
 }
 
