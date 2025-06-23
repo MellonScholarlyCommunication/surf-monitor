@@ -6,6 +6,8 @@
         "../mastodon-bot/outbox",
         "../metadata-server/inbox",
         "../metadata-server/error",
-        "../metadata-server/outbox"
+        "../metadata-server/outbox",
+        "../rdf-generator/inbox",
+        "../rdf-generator/error"
     ]
 }
